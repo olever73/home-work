@@ -1,0 +1,81 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+ body{
+    width: 1000px;
+    height: 700px;
+    margin: 20px, auto;
+    
+}
+
+.box1{
+    width: 900px;
+    height: 200px;
+    background-color: red;
+    position: relative;
+    top: 70px;
+    margin: auto;
+
+    z-index: 1;
+}
+img {
+height: 300px;
+margin: auto;
+
+}
+
+.box2{
+    width: 40%;
+    position: relative;
+    bottom: 180px;
+    left: 150px;
+    z-index: 5;
+
+}
+.box3{
+    z-index: 10;
+    position: relative;
+    bottom: 190px;
+   
+}
+h1{
+    font-size: 3rem; 
+    margin-top: 25px;
+    font-weight:2px;
+    text-align: center;
+  
+}
+p{
+    text-align: center; 
+    margin-top: 10px;
+}
+
+p.link1{
+    margin: 10px;
+   
+}
+a{color: red;
+
+}
+
+button{
+    position: relative;
+    border: 1px solid red;
+    bottom: 170px;
+   left: 430px;
+    text-align: center; 
+    padding: 10px 40px;
+    background-color: white;
+    color:black;
+    font-weight:2px;
+
+
+}
+
+button:hover{
+    background-color:red;
+    cursor: pointer;
+    color:white;
+}
