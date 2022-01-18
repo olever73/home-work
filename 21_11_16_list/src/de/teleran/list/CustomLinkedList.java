@@ -1,7 +1,6 @@
 package de.teleran.list;
 
 import java.util.Iterator;
-
 public class CustomLinkedList<T> implements CustomList<T> {
 
     Node<T> first;
@@ -175,7 +174,7 @@ public class CustomLinkedList<T> implements CustomList<T> {
     }
 
     @Override
-    public Iterator<T> getIterator() {
+    public Iterator<T> iterator() {
         Iterator<T> iterator = new BasicIterator<>(first);
         return iterator;
     }
