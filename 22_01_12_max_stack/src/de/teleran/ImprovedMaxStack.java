@@ -27,6 +27,7 @@ public class ImprovedMaxStack implements MaxStack {
 
     @Override
     public int remove() {
+        currentMaxStack.removeLast();
         return source.removeLast();
     }
 

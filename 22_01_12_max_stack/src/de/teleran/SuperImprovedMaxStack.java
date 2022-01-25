@@ -12,9 +12,9 @@ public class SuperImprovedMaxStack implements MaxStack{
     @Override
     public void add(int elt) {
         if (source.size() == 0)
-            currentMaxStack.add(elt);
-        else {
-            currentMaxStack.add(Math.max(currentMaxStack.getLast(),elt));
+            currentMaxStack.addLast(elt);
+        else if (elt >= currentMaxStack.getLast()) {
+            currentMaxStack.addLast(elt);
         }
         source.addLast(elt);
     }
@@ -26,10 +26,13 @@ public class SuperImprovedMaxStack implements MaxStack{
 
     @Override
     public int remove() {
-        if (currentMaxStack.removeLast()==source.removeLast())
-        return currentMaxStack.removeLast();
-        else {  return source.removeLast();
+        int res = source.removeLast();
+
+        if (res == currentMaxStack.getLast()) {
+            currentMaxStack.removeLast();
         }
+
+        return res;
     }
 
     @Override
