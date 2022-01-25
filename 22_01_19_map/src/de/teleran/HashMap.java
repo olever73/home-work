@@ -1,8 +1,9 @@
 package de.teleran;
 
+import java.util.Iterator;
+
 import static java.util.Objects.hash;
 
-/// TODO investigate and complete and test
 public class HashMap<K, V> implements Map<K, V> {
 
     private static final double LOAD_FACTOR = 0.75;
@@ -24,7 +25,7 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public void put(K key, V value) {
+    public V put(K key, V value) {
         if (size > LOAD_FACTOR * source.length)
             resize();
 
@@ -35,34 +36,33 @@ public class HashMap<K, V> implements Map<K, V> {
             pair = new Pair<>(key, value, source[index]);
             source[index] = pair;
             size++;
-        } else {
-            pair.value = value;
+            return null;
         }
+
+        V res = pair.value;
+        pair.value = value;
+        return res;
     }
 
     private void resize() {
+        Pair<K, V>[] newSource = new Pair[source.length * 2];
 
-        Pair<K, V>[] newSource = new Pair[source.length*2];
+        for (Pair<K, V> pair : source) {
 
-        for (Pair<K, V> cell : source) {
+            Pair<K, V> currentPairInChain = pair;
+            while (currentPairInChain != null) {
+                Pair<K, V> nextPairInChain = currentPairInChain.next;
+                int newIndex = Math.abs(currentPairInChain.key.hashCode()) % newSource.length;
 
-            Pair<K, V> currentPair = cell;
-            while (currentPair != null) {
-                int newIndex = hash(currentPair.key) % source.length;
-                Pair<K, V> next = currentPair.next;
+                currentPairInChain.next = newSource[newIndex];
+                newSource[newIndex] = currentPairInChain;
 
-                currentPair.next = newSource[newIndex];
-                newSource[newIndex] = currentPair;
-
-                currentPair = next;
+                currentPairInChain = nextPairInChain;
             }
         }
 
         source = newSource;
     }
-
-
-
 
     private int findIndex(K key) {
         return Math.abs(key.hashCode()) % source.length;
@@ -97,44 +97,44 @@ public class HashMap<K, V> implements Map<K, V> {
     @Override
     public V remove(K key) {
         int index = findIndex(key);
-        Pair<K, V> current = source[index];
 
-        if (current == null)
+        if (source[index] == null)
             return null;
 
-        if (current.key.equals(key)) {
-            source[index] = current.next;
-            V res = current.value;
+        Pair<K, V> currentPair = source[index];
 
-            clearPair(current);
-
+        if (currentPair.key.equals(key)) {
+            V res = currentPair.value;
+            source[index] = currentPair.next;
+            clearPair(currentPair);
             size--;
             return res;
         }
 
-        while (current.next != null) {
-            if (current.next.key.equals(key)) {
-                Pair<K, V> pairToRemove = current.next;
-                V res = pairToRemove.value;
-                current.next = pairToRemove.next;
-
-                clearPair(pairToRemove);
-
+        while (currentPair.next != null) {
+            if (currentPair.next.key.equals(key)) {
+                Pair<K, V> next = currentPair.next;
+                V res = next.value;
+                currentPair.next = next.next;
+                clearPair(next);
                 size--;
                 return res;
             }
-            current = current.next;
+            currentPair = currentPair.next;
         }
 
         return null;
     }
 
-    private void clearPair(Pair<K,V> current) {
-       
+    private void clearPair(Pair<K, V> currentPair) {
+        currentPair.key = null;
+        currentPair.value = null;
+        currentPair.next = null;
     }
 
     @Override
     public boolean contains(K key) {
+
         return findPair(key) != null;
     }
 
@@ -142,4 +142,72 @@ public class HashMap<K, V> implements Map<K, V> {
     public int size() {
         return size;
     }
+
+    // TODO implement
+    @Override
+    public Iterator<K> keyIterator() {
+
+        return new KeyIterator();
+    }
+    private class KeyIterator implements Iterator<K> {
+        int index = 0;
+        int position = 0;
+        Pair<K, V> currentPair;
+
+        KeyIterator() {
+            if (size == 0)
+                return;
+
+            while (source[index] == null) {
+                index++;
+            }
+            currentPair = source[index];
+        }
+        @Override
+        public boolean hasNext() {
+            return position < size;
+        }
+
+        @Override
+        public K next() {
+            if (position >= size)
+                throw new IndexOutOfBoundsException();
+
+            K res = currentPair.key;
+
+            if (currentPair.next != null) {
+                currentPair = currentPair.next;
+            } else {
+                do {
+                    index++;
+                } while (index < source.length && source[index] == null);
+
+                currentPair = index < source.length ? source[index] : null;
+            }
+
+            position++;
+            return res;
+        }
+
+    }
+    // TODO implement
+    @Override
+    public Iterator<V> valueIterator() {
+        return new Iterator<V>() {
+
+            final KeyIterator keyIterator = new KeyIterator();
+
+            @Override
+            public boolean hasNext() {
+                return keyIterator.hasNext();
+            }
+
+            @Override
+            public V next() {
+                return get(keyIterator.next());
+            }
+        };
+    }
 }
+
+
