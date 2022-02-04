@@ -25,8 +25,6 @@ public class NambersMax {
 
                 if(a[i - 1] < a[i]&& a[i]> a[i + 1])
                     count ++;
-
-
             }
 
             return count;
@@ -49,7 +47,7 @@ public class NambersMax {
                     a[i] = sc.nextInt();
                 }
 
-                System.out.println(size + "%n" +extrema(a, size));
+                System.out.println(size + "\n" +extrema(a, size));
             } finally {
                 sc.close();
             }
