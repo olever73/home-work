@@ -34,6 +34,7 @@ public class HashSet<T> implements Set<T>{
         for (T newElt:another){
             this.add(newElt);
         }
+
     }
 
     @Override
@@ -53,6 +54,7 @@ public class HashSet<T> implements Set<T>{
         }
 
         this.removeAll(temp);
+
 
     }
 

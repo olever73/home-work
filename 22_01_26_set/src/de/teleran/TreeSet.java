@@ -4,30 +4,29 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.TreeMap;
 
-public class TreeSet<T> implements Set{
 
-    TreeMap<T,Object> source = new TreeMap<>();
-   Comparator<T>comparator;
-   private final Object o = new Object();
+public class TreeSet<T> implements Set<T> {
+    TreeMap<T, Object> source = new TreeMap<>();
+    Comparator<T> comparator;
+    private final Object o = new Object();
 
-    public TreeSet(Comparator<T>comparator){
-        this.comparator=comparator;
-        TreeMap<T,Object> source = new TreeMap<>(comparator);
-    }
-
-
-    @Override
-    public boolean add(Object elt) {
-        return source.put((T) elt, o) == null;
+    public TreeSet(Comparator<T> comparator) {
+        this.comparator = comparator;
+        TreeMap<T, Object> source = new TreeMap<>(comparator);
     }
 
     @Override
-    public boolean remove(Object elt) {
+    public boolean add(T elt) {
+        return source.put(elt, o) == null;
+    }
+
+    @Override
+    public boolean remove(T elt) {
         return source.remove(elt) != null;
     }
 
     @Override
-    public boolean contains(Object elt) {
+    public boolean contains(T elt) {
         return source.containsKey(elt);
     }
 
@@ -37,22 +36,28 @@ public class TreeSet<T> implements Set{
     }
 
     @Override
-    public void addAll(Set another) {
-        for (Object newElt:another){
-            this.add(newElt);
+    public void addAll(Set<T> another) {
+        Set<T> temp = new TreeSet<>(comparator);
+
+        for (T elt : this) {
+            if (!another.contains(elt))
+                temp.add(elt);
         }
+
+        this.removeAll(temp);
+
     }
 
     @Override
-    public void removeAll(Set another) {
-        for (Object newElt:another){
+    public void removeAll(Set<T> another) {
+        for (T newElt:another){
             this.remove(newElt);
         }
     }
 
     @Override
-    public void retainAll(Set another) {
-        Set<T> temp = new TreeSet<>();
+    public void retainAll(Set<T> another) {
+        Set<T> temp = new TreeSet<>(comparator);
 
         for (T elt : this) {
             if (!another.contains(elt))
@@ -63,7 +68,7 @@ public class TreeSet<T> implements Set{
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         return source.keySet().iterator();
     }
 }
