@@ -95,7 +95,7 @@ public class FileOperations {
             String[] stringNumbers = input.split(" ");
             List<Integer> res = new ArrayList<>();
             for (String stringNumber : stringNumbers) {
-                res.add(Integer.parseInt(stringNumber));
+                res.add(Integer.valueOf(stringNumber));
             }
             return res;
         }
