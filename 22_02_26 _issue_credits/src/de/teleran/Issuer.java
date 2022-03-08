@@ -27,9 +27,11 @@ public class Issuer extends Thread {
         issueCredits();
 
         int result = (int) (System.currentTimeMillis() - startTime);
-        Score score = new Score(name, result);
-        scores.add(score);
 
+        Score score = new Score(name, result);
+        synchronized (scores) {
+            scores.add(score);
+        }
     }
 
     protected void issueCredits() {
