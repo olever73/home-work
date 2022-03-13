@@ -37,10 +37,10 @@ public class TextConsumer implements Runnable {
         if (splitline.length != 2)
             return line + DELIMETR + WRONG_FORMAT;
 
-        // TODO implement
+
         String operationName=splitline[0];
         String text=splitline[1];
-        // TODO fill the variables operationName and text. Check whether the format of the line is correct
+
 
         IStringOperation operation = operationContext.getOperation(operationName);
         if (operation == null)

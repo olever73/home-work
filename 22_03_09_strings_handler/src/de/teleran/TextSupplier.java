@@ -22,7 +22,7 @@ public class TextSupplier implements Runnable {
             while ((line=br.readLine()) !=null){
                 queue.add(line);
             }
-            // TODO read lines from the file one by one and place them into the queue
+
         } catch (IOException e) {
             e.printStackTrace();
         }
