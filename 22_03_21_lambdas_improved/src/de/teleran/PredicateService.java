@@ -13,4 +13,13 @@ public class PredicateService {
 
         return res;
     }
+    public Predicate<Double> union(List<Predicate<Double>> predicates) {
+        Predicate<Double> res1 = (Double x) -> true;
+
+        for (Predicate<Double> predicate : predicates) {
+            res1 = res1.or(predicate);
+        }
+
+        return res1;
+    }
 }

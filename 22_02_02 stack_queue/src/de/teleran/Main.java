@@ -19,26 +19,25 @@ public class Main {
      * {}([])( - некорректный порядок
      * {(}) - некорректный порядок
      *
-     * @param brackets
+     *
      * @return
      */
 
     // необходимо использовать стек для хранения открытых в данный момент скобок.
-    public boolean areBracketsCorrect(char[] brackets) {
+    public boolean balancedBrackets(String str){
+        char[] chars = str.toCharArray();
+        Deque<Character> brackets = new ArrayDeque<>();
 
-
-        Deque<Character> bracket = new ArrayDeque<>();
-
-        for(char letter: bracket){
+        for(char letter: chars){
             if(letter=='('|| letter=='{' || letter=='[')
-                bracket.addFirst(letter);
-            else if (letter==')'&&bracket.getFirst()=='(' ||
-                    letter=='}'&&bracket.getFirst()=='{' ||
-                    letter==']'&&bracket.getFirst()=='[')
-                bracket.removeFirst();
+                brackets.addFirst(letter);
+            else if (letter==')'&&brackets.getFirst()=='(' ||
+                    letter=='}'&&brackets.getFirst()=='{' ||
+                    letter==']'&&brackets.getFirst()=='[')
+                brackets.removeFirst();
 
         }
-        if (bracket.size()==0)
+        if (brackets.size()==0)
             return true;
 
         return false;
@@ -46,4 +45,6 @@ public class Main {
 
 
 }
+class EmptyListExeption extends Exception {}
+
 

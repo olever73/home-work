@@ -55,5 +55,7 @@ public class Solution {
         List<Predicate<Double>> list = Arrays.asList(pr1, pr2, pr3, pr4);
         System.out.println(predicateService.intersect(list).test(12.0));
         System.out.println(predicateService.intersect(list).test(25.0));
+        System.out.println(predicateService.union(list).test(37.0));
+        System.out.println(predicateService.union(list).test(25.0));
     }
 }
