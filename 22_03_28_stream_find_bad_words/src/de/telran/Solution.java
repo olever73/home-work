@@ -24,5 +24,6 @@ public class Solution {
                 .collect(Collectors.toList());
 
         result.forEach(System.out::println);
+        // пересечение and(объединение or)
     }
 }
