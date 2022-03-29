@@ -26,4 +26,21 @@ public class Solution {
         result.forEach(System.out::println);
         // пересечение and(объединение or)
     }
+
+    public <T> Predicate<T> union(List<Predicate<T>> predicates) {
+        Predicate<T> res = (t) -> false;
+        return predicates.stream()
+                .reduce(res, Predicate :: or);
+    }
+
+
+    public <T> Predicate<T> intersect(List<Predicate<T>> predicates) {
+        if (predicates.size() == 0)
+            throw new IllegalArgumentException();
+
+        Predicate<T> res = (t) -> true;
+        return predicates.stream()
+                .reduce(res, Predicate :: and);
+    }
+
 }
