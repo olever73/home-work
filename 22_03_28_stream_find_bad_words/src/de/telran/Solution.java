@@ -8,7 +8,7 @@ public class Solution {
 
     public static void main(String[] args) {
 
-        var words = List.of("sky", "curtain", "sin", "shy", "way", "club",
+        List<String>words = List.of("sky", "curtain", "sin", "shy", "way", "club",
                 "spy", "silk", "summer", "war", "cup", "cloud", "coin", "small",
                 "set", "terse", "tree", "sea", "sip", "snow", "snail", "sly",
                 "six", "sod", "see", "sit", "sad", "wry", "why");
@@ -17,10 +17,10 @@ public class Solution {
         Predicate<String> p2 = e -> e.endsWith("y");
         Predicate<String> p3 = e -> e.length() == 3;
 
-        var prs = List.of(p1, p2, p3);
+        List<Predicate<String >>ppp= List.of(p1, p2, p3);
 
-        var result = words.stream()
-                .filter(prs.stream().reduce(x -> true, Predicate::and))
+             List<String>result= words.stream()
+                .filter(ppp.stream().reduce(x -> true, Predicate::and))
                 .collect(Collectors.toList());
 
         result.forEach(System.out::println);

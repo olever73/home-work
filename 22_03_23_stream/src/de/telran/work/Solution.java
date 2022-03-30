@@ -46,7 +46,7 @@ public class Solution {
 
        public long summOddNumbers(int a,int b){
            return LongStream.rangeClosed(a,b)
-                    .filter(number->number%2==1)
+                    .filter(number->number%2!=0)
                     .reduce((res,number)->(res+number))
                     .orElseThrow(()-> new NoSuchElementException());
        }

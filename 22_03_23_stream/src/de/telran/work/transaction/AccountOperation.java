@@ -13,5 +13,8 @@ public class AccountOperation {
                 .filter(transaction -> transaction.getState().equals(State.CANCELLED))
                 .reduce(0L, (result, transaction) -> result + transaction.getSum(), Long::sum);
 
+
+
+
     }
 }
