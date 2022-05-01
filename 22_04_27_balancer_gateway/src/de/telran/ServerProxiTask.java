@@ -28,7 +28,7 @@ public class ServerProxiTask implements Runnable {
         int port = serverData.getPort();
 
         Socket socketToServer;
-        // establish connection to the best server
+
         try {
             System.out.println(host + ":" + port);
             socketToServer = new Socket(host, port);
@@ -37,7 +37,7 @@ public class ServerProxiTask implements Runnable {
             return;
         }
 
-        // proxying to the best server
+
         try (PrintStream toClient = new PrintStream(socket.getOutputStream());
              BufferedReader fromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintStream toServer = new PrintStream(socketToServer.getOutputStream());
@@ -45,13 +45,13 @@ public class ServerProxiTask implements Runnable {
         ) {
             String lineFromClient;
 
-            // pipe from client to server
+
             while ((lineFromClient = fromClient.readLine()) != null) {
                 toServer.println(lineFromClient);
                 String lineFromServer = fromServer.readLine();
                 toClient.println(lineFromServer);
             }
-            // close connection to the server
+
             socketToServer.close();
         } catch (IOException e) {
             e.printStackTrace();
