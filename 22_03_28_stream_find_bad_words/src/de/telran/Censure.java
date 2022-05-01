@@ -21,7 +21,7 @@ public class Censure {
     }
 
     public List<String> findBadWords(String text) {
-        String[] words = text.split(" ");
+        String[] words = text.split("[ \\,\\.\\-\\:\\;\\!\\?\\...]");
         return Arrays.stream(words)
                 .map(String::toLowerCase)
                 .filter(badWords::contains)
