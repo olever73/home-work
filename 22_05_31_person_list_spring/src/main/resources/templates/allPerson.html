@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Persons</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> Persons </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> Name </th>
+                    <th> LastName </th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*@thymesVar id="persons" type="ch"*/-->
+                <tr th:if="${persons}">
+                    <td colspan="2">  </td>
+                </tr>
+                <tr th:each="person : ${persons}">
+                    <td>
+
+                    <span th:text="${person.name}"> Name </span></td>
+                    <!--/*@thymesVar id="name" type=""*/-->
+
+                    <td><!--/*@thymesVar id="getlastName" type="ch"*/-->
+                    <span th:text="${person.lastname}"> LastName </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-success" href="#" th:href="@{/allPerson.html/create}"> Add Persons </a>
+            <!--/*@thymesVar id="persons" type="ch"*/-->
+            <a class="btn btn-primary" href="#" th:href="@{/editPersonsForm.html/edit}" th:classappend="${persons} ? 'disabled' : ''"> Edit Persons </a>
+        </div>
+    </div>
+</div>
+</body>
+</html></html>
