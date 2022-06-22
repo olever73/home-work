@@ -16,6 +16,5 @@ public interface OwnerService {
     // GET Mapping /buildings/{id}
     OwnerDTO getOwnerById(Long id);
 
-
-
+    void toggleDogOwner(Long ownerId, Long dogId);
 }

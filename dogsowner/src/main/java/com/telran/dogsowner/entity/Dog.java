@@ -19,15 +19,20 @@ public class Dog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "owner")
     private Owner owner;
+
     @Column(name = "nickname")
     private String nickname;
+
     @Column(name = "breed")
 	private String breed;
+
     @Column(name = "dateOfBirth")
     private LocalDate dateOfBirth;
+
     @Column(name = "registrationDate")
     private LocalDate registrationDate ;
 
