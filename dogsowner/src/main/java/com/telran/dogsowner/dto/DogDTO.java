@@ -13,11 +13,11 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class DogDTO {
-    public Long id;
-    public String breed;
-    public String nickname;
-    public Owner owner;
-    public LocalDate registrationDate;
+    private Long id;
+    private String breed;
+    private String nickname;
+    private Owner owner;
+    private LocalDate registrationDate;
 
 
     private LocalDate dateOfBirth;

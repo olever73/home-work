@@ -6,20 +6,21 @@ import com.telran.dogsowner.repository.DogRepository;
 import com.telran.dogsowner.service.DogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+@Service
 public class DogServiceImpl implements DogService {
+
     @Autowired
-    DogRepository dogRepository;
+    private DogRepository dogRepository;
 
     @Override
     public void createDog(DogDTO dogDTO) {
         Dog dog = Dog.builder()
-                .id(dogDTO.getId())
                 .nickname(dogDTO.getNickname())
                 .breed(dogDTO.getBreed())
-                //  .owner(dogDTO.getOwner())
-                .registrationDate(dogDTO.getRegistrationDate())
+                .registrationDate(null)
                 .build();
 
         dogRepository.save(dog);
@@ -27,12 +28,13 @@ public class DogServiceImpl implements DogService {
 
     @Override
     public void edit(DogDTO dogDTO) {
-        Dog dog = dogRepository.findById(dogDTO.id).orElseThrow();
+        Dog dog = dogRepository.findById(dogDTO.getId()).orElseThrow();
 
-        dog.setBreed(dogDTO.breed);
-        dog.setNickname(dogDTO.nickname);
-        dog.setOwner(dogDTO.owner);
-        dog.setRegistrationDate(dogDTO.registrationDate);
+        dog.setBreed(dogDTO.getBreed());
+        dog.setNickname(dogDTO.getNickname());
+        dog.setOwner(dogDTO.getOwner());
+        dog.setRegistrationDate(dogDTO.getRegistrationDate());
+
         dogRepository.save(dog);
     }
 
@@ -41,6 +43,7 @@ public class DogServiceImpl implements DogService {
         Dog dog = dogRepository
                 .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
         return DogDTO.builder()
                 .id(dog.getId())
                 .breed(dog.getBreed())
