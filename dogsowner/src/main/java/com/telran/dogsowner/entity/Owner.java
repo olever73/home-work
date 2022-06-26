@@ -21,19 +21,13 @@ public class Owner {
     private Long id;
 
     @Column(name = "firstName")
-   private String firstName;
+    private String firstName;
 
     @Column(name = "lastName")
     private String lastName;
+
     @Column(name = "dateOfBirth")
     private LocalDate dateOfBirth;
-
-
-
-
-
-
-
 
 
 }
